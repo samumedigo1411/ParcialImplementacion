@@ -1,0 +1,40 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: api-gateway
+
+  cloud:
+    gateway:
+      routes: #Busca en eureka quien se llama case-service y asi suecesivamente con todos los servicios que hicimos
+        - id: case-service
+          uri: lb://case-service
+          predicates:
+            - Path=/cases/**
+
+        - id: people-service
+          uri: lb://people-service
+          predicates:
+            - Path=/people/**
+
+        - id: evidence-service
+          uri: lb://evidence-service
+          predicates:
+            - Path=/evidences/**
+
+        - id: task-service
+          uri: lb://task-service
+          predicates:
+            - Path=/tasks/**
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info

@@ -1,0 +1,4 @@
+CREATE DATABASE casedb;
+CREATE DATABASE peopledb;
+CREATE DATABASE evidencedb;
+CREATE DATABASE taskdb;
