@@ -7,31 +7,31 @@ spring:
 
   cloud:
     gateway:
-      routes: #Busca en eureka quien se llama case-service y asi suecesivamente con todos los servicios que hicimos
+      routes:
         - id: case-service
-          uri: lb://case-service
+          uri: http://case-service:8081
           predicates:
             - Path=/cases/**
 
         - id: people-service
-          uri: lb://people-service
+          uri: http://people-service:8082
           predicates:
             - Path=/people/**
 
         - id: evidence-service
-          uri: lb://evidence-service
+          uri: http://evidence-service:8083
           predicates:
             - Path=/evidences/**
 
         - id: task-service
-          uri: lb://task-service
+          uri: http://task-service:8084
           predicates:
             - Path=/tasks/**
 
 eureka:
   client:
     service-url:
-      defaultZone: http://localhost:8761/eureka/
+      defaultZone: http://eureka-server:8761/eureka/
 
 management:
   endpoints:
