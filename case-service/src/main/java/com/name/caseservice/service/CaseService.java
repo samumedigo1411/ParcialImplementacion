@@ -2,8 +2,8 @@ package com.name.caseservice.service;
 
 import com.name.caseservice.config.KafkaConfig;
 import com.name.caseservice.dto.CaseRequestDTO;
-import com.name.caseservice.dto.CaseResponseDTO;
-import com.name.caseservice.events.CaseCreatedEvent;
+import com.name.caseservice.controller.dto.CaseResponseDTO;
+import com.name.caseservice.exception.events.CaseCreatedEvent;
 import com.name.caseservice.exception.CaseNotFoundException;
 import com.name.caseservice.model.CaseStatus;
 import com.name.caseservice.model.InvestigationCase;

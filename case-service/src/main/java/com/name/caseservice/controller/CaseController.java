@@ -1,7 +1,7 @@
 package com.name.caseservice.controller;
 
 import com.name.caseservice.dto.CaseRequestDTO;
-import com.name.caseservice.dto.CaseResponseDTO;
+import com.name.caseservice.controller.dto.CaseResponseDTO;
 import com.name.caseservice.model.CaseStatus;
 import com.name.caseservice.service.CaseService;
 import jakarta.validation.Valid;

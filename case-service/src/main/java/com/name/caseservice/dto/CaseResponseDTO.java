@@ -1,4 +1,4 @@
-package com.name.caseservice.dto;
+package com.name.caseservice.controller.dto;
 
 import com.name.caseservice.model.CasePriority;
 import com.name.caseservice.model.CaseStatus;

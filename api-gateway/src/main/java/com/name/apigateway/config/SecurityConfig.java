@@ -23,11 +23,15 @@ import java.util.stream.Collectors;
 @Configuration
 @EnableWebFluxSecurity
 public class SecurityConfig {
+
     @Bean
     public SecurityWebFilterChain springSecurityFilterChain(ServerHttpSecurity http) {
-        .csrf(ServerHttpSecurity.CsrfSpec::disable)
+        http
+                .csrf(ServerHttpSecurity.CsrfSpec::disable)
                 .authorizeExchange(exchanges -> exchanges
+                        // Eureka y actuator sin autenticación
                         .pathMatchers("/actuator/**").permitAll()
+                        // Rutas protegidas por rol
                         .pathMatchers("/cases/**").hasAnyRole("ADMIN", "DETECTIVE", "ANALYST")
                         .pathMatchers("/people/**").hasAnyRole("ADMIN", "DETECTIVE")
                         .pathMatchers("/evidences/**").hasAnyRole("ADMIN", "DETECTIVE", "ANALYST")
@@ -42,6 +46,7 @@ public class SecurityConfig {
 
         return http.build();
     }
+
     @Bean
     public Converter<Jwt, Mono<AbstractAuthenticationToken>> keycloakJwtConverter() {
         JwtAuthenticationConverter converter = new JwtAuthenticationConverter();
@@ -53,10 +58,13 @@ public class SecurityConfig {
         return jwt -> {
             Map<String, Object> resourceAccess = jwt.getClaim("resource_access");
             if (resourceAccess == null) return List.of();
+
             Map<String, Object> client = (Map<String, Object>) resourceAccess.get("parcial-client");
             if (client == null) return List.of();
+
             List<String> roles = (List<String>) client.get("roles");
             if (roles == null) return List.of();
+
             return roles.stream()
                     .map(role -> new SimpleGrantedAuthority("ROLE_" + role))
                     .collect(Collectors.toList());

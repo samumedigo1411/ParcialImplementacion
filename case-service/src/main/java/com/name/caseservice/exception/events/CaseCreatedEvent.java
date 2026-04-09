@@ -1,4 +1,4 @@
-package com.name.caseservice.events;
+package com.name.caseservice.exception.events;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
